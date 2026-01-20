@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Preciosa SammyRizitos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Evita que la pantalla se mueva */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ESTO CORRIGE EL GIF */
+        .background-gif {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* El cover es vital para eliminar lo negro */
+            background: url('lirios.gif') no-repeat center center;
+            background-size: cover; 
+            z-index: -1;
+            filter: brightness(0.7);
+        }
+
+        /* TARJETA EFECTO VIDRIO */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 30px;
+            width: 85%;
+            max-width: 380px;
+            text-align: center;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* BOTÓN DE PRESIÓN */
+        .hold-button {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #fff;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            touch-action: none; /* Importante para móviles */
+        }
+
+        .progress-ring {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .progress-ring circle {
+            fill: none;
+            stroke: #ffb7c5;
+            stroke-width: 5;
+            stroke-dasharray: 283; /* 2 * PI * 45 */
+            stroke-dashoffset: 283;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        /* MENSAJES */
+        #content-section { display: none; opacity: 0; transition: 1s; }
+        .message-slide { display: none; }
+        .message-slide.active { display: block; animation: fadeIn 0.5s; }
+        
+        .final-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .button-group {
+            display: flex;
+            gap: 10px; /* Espacio entre botones */
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #fff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            flex: 1; /* Para que tengan el mismo tamaño */
+            max-width: 150px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Ocultar el botón anterior en el primer mensaje */
+        .hidden-btn {
+            visibility: hidden;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-gif"></div>
+
+    <audio id="bg-music">
+        <source src="https://raw.githubusercontent.com/fabidz13/Canciones/main/HOME%20-%20BTS.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="glass-card">
+        <div id="lock-state">
+            <h2>Holis Mi Preciosa Noviecita...</h2>
+            <p>Mantén presionado el corazón 5 segundos</p>
+            <div class="hold-button" id="hold-trigger">
+                <span style="font-size: 40px;">💗</span>
+                <svg class="progress-ring"><circle id="progress-bar" cx="50" cy="50" r="45"></circle></svg>
+            </div>
+        </div>
+
+        <div id="content-section">
+            <div class="message-slide active">
+                <h1 class="final-text">¡Holi de nuevo!</h1>
+                <p>Sabía que lo lograrías. Tienes la paciencia más linda del mundo. ☺️</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Un momento...</h1>
+                <p>¿Te he dicho hoy lo mucho que iluminas todo mi mundo? 🌟</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Gratitud</h1>
+                <p>Gracias por estar en mi vida y por hacer que lo ordinario se sienta extraordinario. 💖</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Mi lugar seguro</h1>
+                <p>No importa qué pase afuera, hablar contigo siempre me devuelve la paz. 💕</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Recuerdos</h1>
+                <p>Atesoro cada pequeño detalle, cada risa y cada palabra que hemos compartido. 💾</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Eres especial</h1>
+                <p>No hay nadie en este mundo que tenga esa esencia tan mágica que tienes tú. 💓</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Lo haré</h1>
+                <p>Te cuidare y recordare siempre lo valiosa que eres, incluso cuando se te olvide. 💘</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Mi deseo</h1>
+                <p>Espero que este pequeño detalle te haga sonreír, aunque sea un poquito. 🥰</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Solo tú</h1>
+                <p>Gracias por ser exactamente como eres, me tienes soy tuyo y de ti. 😍</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Para siempre</h1>
+                <p>Este es el final de los mensajes, pero solo el principio de todo lo que quiero decirte. 😽</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Te Amo</h1>
+                <p>Te Amo Demasiado y cuando pienso en ti no puedo evitar sonrier y querer ser mejor por ti. 🥹😻</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Me Encantas</h1>
+                <p>Tanto que quiero estar a tu lado siempre mi amor. 💗</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Te Adoro</h1>
+                <p>Eres tan preciosa, tierna adorable que quiero estar ahi abrazandote. 💕</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Me Haces Feliz</h1>
+                <p>Hiciste que mi dia a dia mejore como no tienes idea, eres lo mejor mi cielito. 🥰</p>
+            </div>
+            <div class="message-slide">
+                <h1 class="final-text">Verte</h1>
+                <p>El simple hecho de ver que compartes algo pequeño conmigo, me hace amarte tanto, como tus rizitos, y tus ojitos. ❣️</p>
+            </div>
+             <div class="message-slide">
+                <h1 class="final-text">Gracias por Leer</h1>
+                <p>Cada mensajito es parte de lo que siento por ti, Te amo Sammy Rizitos. 💗</p>
+            </div>
+            <div class="button-group">
+                <button class="nav-btn hidden-btn" id="prev-btn">←</button>
+                <button class="nav-btn" id="next-btn">→</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const btn = document.getElementById('hold-trigger');
+        const progressBar = document.getElementById('progress-bar');
+        const lockState = document.getElementById('lock-state');
+        const contentSection = document.getElementById('content-section');
+        const music = document.getElementById('bg-music');
+        
+        let holdTimer;
+        let progress = 0;
+        const duration = 5000; 
+
+        function startHolding(e) {
+            e.preventDefault();
+            holdTimer = setInterval(() => {
+                progress += 50;
+                let offset = 283 - (progress / duration) * 283;
+                progressBar.style.strokeDashoffset = offset;
+                if (progress >= duration) unlock();
+            }, 50);
+        }
+
+        function stopHolding() {
+            clearInterval(holdTimer);
+            progress = 0;
+            progressBar.style.strokeDashoffset = 283;
+        }
+
+        function unlock() {
+            clearInterval(holdTimer);
+            music.play().catch(e => console.log("Error música:", e));
+            
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+
+            lockState.style.display = 'none';
+            contentSection.style.display = 'block';
+            setTimeout(() => { contentSection.style.opacity = '1'; }, 100);
+        }
+
+        // Eventos
+        btn.addEventListener('mousedown', startHolding);
+        btn.addEventListener('touchstart', startHolding);
+        window.addEventListener('mouseup', stopHolding);
+        window.addEventListener('touchend', stopHolding);
+
+        // Lógica de Siguiente
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.message-slide');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+
+        function updateNavigation() {
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            slides[currentSlide].classList.add('active');
+
+            if (currentSlide === 0) {
+                prevBtn.classList.add('hidden-btn');
+            } else {
+                prevBtn.classList.remove('hidden-btn');
+            }
+
+            if (currentSlide === slides.length - 1) {
+                nextBtn.innerText = "❤️";
+            } else {
+                nextBtn.innerText = "→";
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateNavigation();
+            } else {
+                document.querySelector('.button-group').style.display = 'none';
+                confetti({
+                    particleCount: 200,
+                    spread: 100,
+                    origin: { y: 0.6 },
+                    colors: ['#ffb7c5', '#ffffff', '#ff758c']
+                });
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateNavigation();
+            }
+        });
+    </script>
+</body>
+</html>
